@@ -39,8 +39,10 @@ const reducerFn = (state, action) => {
         phone: action.value.phone,
         hobbies: action.value.hobbies,
       };
-      console.log(updatedFields);
       return updatedFields;
+    }
+    case "RESET_USER": {
+      return { name: "", email: "", phone: "", gender: null, hobbies: [] };
     }
     default:
       return { ...state };
@@ -75,14 +77,10 @@ function Form(props) {
       user.id = Math.random().toString().slice(2, 8);
       addUser(user);
     }
-    dispatch({ type: "EDIT_NAME", value: "" });
-    dispatch({ type: "EDIT_EMAIL", value: "" });
-    dispatch({ type: "EDIT_PHONE", value: "" });
-    dispatch({ type: "EDIT_GENDER", value: "" });
-    dispatch({ type: "EDIT_HOBBIES", value: "" });
+    dispatch({ type: "RESET_USER" });
     onClose();
   };
-  console.log(user);
+
   return (
     <>
       {ReactDOM.createPortal(
